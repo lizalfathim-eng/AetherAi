@@ -1,0 +1,622 @@
+{#{% extends 'home_index.html' %}#}
+{#{% block body %}#}
+{##}
+{##}
+{##}
+{#<div class="form-container">#}
+{#    <h2>Add Staff</h2>#}
+{#    <form action="/myapp/add_staff_post/" method="post" enctype="multipart/form-data">#}
+{#        {% csrf_token %}#}
+{##}
+{#        <div class="form-group">#}
+{#            <label for="name">Name</label>#}
+{#            <input type="text" name="name" id="name" required />#}
+{#        </div>#}
+{##}
+{#        <div class="form-group">#}
+{#            <label for="name">Dob</label>#}
+{#            <input type="date" name="dob" id="name" required />#}
+{#        </div>#}
+{##}
+{#        <div class="form-group">#}
+{#            <label for="name">Gender</label>#}
+{#            <div class="d-flex gap-3">#}
+{#              <label><input type="radio" name="gender" value="male" checked /> Male</label>#}
+{#              <label><input type="radio" name="gender" value="female" /> Female</label>#}
+{#              <label><input type="radio" name="gender" value="other" /> Other</label>#}
+{#            </div>#}
+{#            <input type="date" name="authorityname" id="name" required />#}
+{#        </div>#}
+{##}
+{##}
+{##}
+{#        <div class="form-group">#}
+{#            <label for="email">Email</label>#}
+{#            <input type="email" name="email" id="email" required />#}
+{#        </div>#}
+{##}
+{#        <div class="form-group">#}
+{#            <label for="photo">Photo</label>#}
+{#            <input type="file" name="photo" id="photo" required />#}
+{#        </div>#}
+{##}
+{#        <div class="form-group">#}
+{#            <label for="phoneno">Phone</label>#}
+{#            <input type="text" name="phone" id="phone" maxlength="10" required />#}
+{#        </div>#}
+{##}
+{#        <div class="form-group">#}
+{#            <label for="place">Place</label>#}
+{#            <input type="text" name="place" id="place" required />#}
+{#        </div>#}
+{##}
+{#        <div class="form-group">#}
+{#            <label for="pin">Pin</label>#}
+{#            <input type="text" name="pin" id="pin" maxlength="6" required />#}
+{#        </div>#}
+{##}
+{#        <div class="form-group">#}
+{#            <label for="pin">District</label>#}
+{#            <input type="text" name="district" id="district" maxlength="20" required />#}
+{#        </div>#}
+{##}
+{#        <div class="form-group">#}
+{#            <label for="pin">Qualification</label>#}
+{#            <input type="text" name="qualification" id="qualification" maxlength="50" required />#}
+{#        </div>#}
+{##}
+{#        <button type="submit" class="btn btn-submit">Submit</button>#}
+{#    </form>#}
+{#</div>#}
+{##}
+{#{% endblock %}#}
+
+
+{#{% extends 'home_index.html' %}#}
+{#{% block body %}#}
+{##}
+{#<style>#}
+{#    .form-container {#}
+{#        max-width: 600px;#}
+{#        margin: 40px auto;#}
+{#        padding: 30px;#}
+{#        background: #ffffff;#}
+{#        border-radius: 12px;#}
+{#        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);#}
+{#    }#}
+{##}
+{#    .form-container h2 {#}
+{#        text-align: center;#}
+{#        margin-bottom: 25px;#}
+{#        color: #333;#}
+{#        font-weight: 600;#}
+{#    }#}
+{##}
+{#    .form-group {#}
+{#        margin-bottom: 15px;#}
+{#    }#}
+{##}
+{#    label {#}
+{#        font-weight: 500;#}
+{#        display: block;#}
+{#        margin-bottom: 6px;#}
+{#    }#}
+{##}
+{#    input[type="text"],#}
+{#    input[type="email"],#}
+{#    input[type="date"],#}
+{#    input[type="file"] {#}
+{#        width: 100%;#}
+{#        padding: 10px;#}
+{#        border: 1px solid #ccc;#}
+{#        border-radius: 6px;#}
+{#        outline: none;#}
+{#    }#}
+{##}
+{#    input:focus {#}
+{#        border-color: #4a90e2;#}
+{#    }#}
+{##}
+{#    .error {#}
+{#        color: red;#}
+{#        font-size: 13px;#}
+{#        margin-top: 3px;#}
+{#    }#}
+{##}
+{#    .btn-submit {#}
+{#        width: 100%;#}
+{#        padding: 12px;#}
+{#        background: #4a90e2;#}
+{#        color: white;#}
+{#        font-size: 16px;#}
+{#        border: none;#}
+{#        border-radius: 6px;#}
+{#        cursor: pointer;#}
+{#        transition: background 0.3s;#}
+{#    }#}
+{##}
+{#    .btn-submit:hover {#}
+{#        background: #357abd;#}
+{#    }#}
+{##}
+{#    .d-flex {#}
+{#        display: flex;#}
+{#        gap: 20px;#}
+{#    }#}
+{#.alert {#}
+{#    padding: 12px;#}
+{#    margin-bottom: 15px;#}
+{#    border-radius: 6px;#}
+{#    font-weight: 500;#}
+{#}#}
+{##}
+{#.alert-success {#}
+{#    background: #d4edda;#}
+{#    color: #155724;#}
+{#}#}
+{##}
+{#.alert-danger {#}
+{#    background: #f8d7da;#}
+{#    color: #721c24;#}
+{#}#}
+{##}
+{#.alert-info {#}
+{#    background: #d1ecf1;#}
+{#    color: #0c5460;#}
+{#}#}
+{##}
+{#</style>#}
+{##}
+{#<div class="form-container">#}
+{##}
+{#{% if messages %}#}
+{#    {% for message in messages %}#}
+{#        <div class="alert#}
+{#            {% if message.tags == 'success' %}alert-success#}
+{#            {% elif message.tags == 'error' %}alert-danger#}
+{#            {% else %}alert-info{% endif %}">#}
+{#            {{ message }}#}
+{#        </div>#}
+{#    {% endfor %}#}
+{#{% endif %}#}
+{##}
+{#    <h2>Add Staff</h2>#}
+{##}
+{#    <form action="/myapp/add_staff_post/" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">#}
+{#        {% csrf_token %}#}
+{##}
+{#        <div class="form-group">#}
+{#            <label>Name</label>#}
+{#            <input type="text" name="name" id="name" required>#}
+{#            <div class="error" id="nameError"></div>#}
+{#        </div>#}
+{##}
+{#        <div class="form-group">#}
+{#            <label>DOB</label>#}
+{#            <input type="date" name="dob" id="dob" required>#}
+{#        </div>#}
+{##}
+{#        <div class="form-group">#}
+{#            <label>Gender</label>#}
+{#            <div class="d-flex">#}
+{#                <label><input type="radio" name="gender" value="male" checked> Male</label>#}
+{#                <label><input type="radio" name="gender" value="female"> Female</label>#}
+{#                <label><input type="radio" name="gender" value="other"> Other</label>#}
+{#            </div>#}
+{#        </div>#}
+{##}
+{#        <div class="form-group">#}
+{#            <label>Email</label>#}
+{#            <input type="email" name="email" id="email" required>#}
+{#            <div class="error" id="emailError"></div>#}
+{#        </div>#}
+{##}
+{#        <div class="form-group">#}
+{#            <label>Photo</label>#}
+{#            <input type="file" name="photo" accept="image/png, image/jpeg, image/jpg" required>#}
+{#        </div>#}
+{##}
+{#        <div class="form-group">#}
+{#            <label>Phone</label>#}
+{#            <input type="text" name="phone" id="phone" maxlength="10" required>#}
+{#            <div class="error" id="phoneError"></div>#}
+{#        </div>#}
+{##}
+{#        <div class="form-group">#}
+{#            <label>Place</label>#}
+{#            <input type="text" name="place" id="place" required>#}
+{#            <div class="error" id="placeError"></div>#}
+{#        </div>#}
+{##}
+{#        <div class="form-group">#}
+{#            <label>PIN</label>#}
+{#            <input type="text" name="pin" id="pin" maxlength="6" required>#}
+{#            <div class="error" id="pinError"></div>#}
+{#        </div>#}
+{##}
+{#        <div class="form-group">#}
+{#            <label>District</label>#}
+{#            <input type="text" name="district" id="district" required>#}
+{#            <div class="error" id="districtError"></div>#}
+{#        </div>#}
+{##}
+{#        <div class="form-group">#}
+{#            <label>Qualification</label>#}
+{#            <input type="text" name="qualification" required>#}
+{#        </div>#}
+{##}
+{#        <button type="submit" class="btn btn-submit">Submit</button>#}
+{#    </form>#}
+{#</div>#}
+{##}
+{#<script>#}
+{#    function validateForm() {#}
+{#        let valid = true;#}
+{##}
+{#        // Clear errors#}
+{#        document.querySelectorAll('.error').forEach(e => e.innerText = "");#}
+{##}
+{#        const name = document.getElementById("name").value.trim();#}
+{#        const email = document.getElementById("email").value.trim();#}
+{#        const phone = document.getElementById("phone").value.trim();#}
+{#        const pin = document.getElementById("pin").value.trim();#}
+{#        const place = document.getElementById("place").value.trim();#}
+{#        const district = document.getElementById("district").value.trim();#}
+{#        const dob = document.getElementById("dob").value;#}
+{##}
+{##}
+{#        // Name validation (no numbers)#}
+{#        if (!/^[A-Za-z\s]+$/.test(name)) {#}
+{#            document.getElementById("nameError").innerText = "Name should contain only letters";#}
+{#            valid = false;#}
+{#        }#}
+{##}
+{#        // Email validation (@gmail.com)#}
+{#        if (!email.endsWith("@gmail.com")) {#}
+{#            document.getElementById("emailError").innerText = "Email must end with @gmail.com";#}
+{#            valid = false;#}
+{#        }#}
+{##}
+{#        // Phone validation (10 digits)#}
+{#        if (!/^\d{10}$/.test(phone)) {#}
+{#            document.getElementById("phoneError").innerText = "Phone must be 10 digits";#}
+{#            valid = false;#}
+{#        }#}
+{##}
+{#        // PIN validation (6 digits)#}
+{#        if (!/^\d{6}$/.test(pin)) {#}
+{#            document.getElementById("pinError").innerText = "PIN must be 6 digits";#}
+{#            valid = false;#}
+{#        }#}
+{##}
+{#        // Place & District (letters only)#}
+{#        if (!/^[A-Za-z\s]+$/.test(place)) {#}
+{#            document.getElementById("placeError").innerText = "Place should contain only letters";#}
+{#            valid = false;#}
+{#        }#}
+{##}
+{#        if (!/^[A-Za-z\s]+$/.test(district)) {#}
+{#            document.getElementById("districtError").innerText = "District should contain only letters";#}
+{#            valid = false;#}
+{#        }#}
+{##}
+{#        if (dob) {#}
+{#            const dobDate = new Date(dob);#}
+{#            const today = new Date();#}
+{##}
+{#            let age = today.getFullYear() - dobDate.getFullYear();#}
+{#            const monthDiff = today.getMonth() - dobDate.getMonth();#}
+{##}
+{#            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dobDate.getDate())) {#}
+{#                age--;#}
+{#            }#}
+{##}
+{#            if (age < 18) {#}
+{#                document.getElementById("dobError").innerText = "Staff must be at least 18 years old";#}
+{#                valid = false;#}
+{#            }#}
+{#        }#}
+{##}
+{#        return valid;#}
+{#    }#}
+{#</script>#}
+{##}
+{#{% endblock %}#}
+{% extends 'admin/home_index.html' %}
+{% block body %}
+
+<style>
+    .form-container {
+        max-width: 600px;
+        margin: 40px auto;
+        padding: 30px;
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-container h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        color: #333;
+        font-weight: 600;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    label {
+        font-weight: 500;
+        display: block;
+        margin-bottom: 6px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="date"],
+    input[type="file"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        outline: none;
+    }
+
+    input:focus {
+        border-color: #4a90e2;
+    }
+
+    .error {
+        color: red;
+        font-size: 13px;
+        margin-top: 3px;
+    }
+
+    .btn-submit {
+        width: 100%;
+        padding: 12px;
+        background: #4a90e2;
+        color: white;
+        font-size: 16px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    .btn-submit:hover {
+        background: #357abd;
+    }
+
+    .d-flex {
+        display: flex;
+        gap: 20px;
+    }
+
+    .alert {
+        padding: 12px;
+        margin-bottom: 15px;
+        border-radius: 6px;
+        font-weight: 500;
+    }
+
+    .alert-success {
+        background: #d4edda;
+        color: #155724;
+    }
+
+    .alert-danger {
+        background: #f8d7da;
+        color: #721c24;
+    }
+</style>
+
+<div class="form-container">
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-danger{% endif %}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
+    <h2>Add Staff</h2>
+
+    <form action="/myapp/add_staff_post/" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" name="name" id="name" required>
+            <div class="error" id="nameError"></div>
+        </div>
+
+        <div class="form-group">
+            <label>DOB</label>
+            <input type="date" name="dob" max="{{ date|date:'Y-m-d' }}" id="dob" required>
+            <div class="error" id="dobError"></div>
+        </div>
+
+        <div class="form-group">
+            <label>Gender</label>
+            <div class="d-flex">
+                <label><input type="radio" name="gender" value="male" checked> Male</label>
+                <label><input type="radio" name="gender" value="female"> Female</label>
+                <label><input type="radio" name="gender" value="other"> Other</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" name="email" id="email" required>
+            <div class="error" id="emailError"></div>
+        </div>
+
+        <div class="form-group">
+            <label>Photo</label>
+            <input type="file" name="photo" id="photo" accept=".jpg,.jpeg,.png" required>
+            <div class="error" id="photoError"></div>
+        </div>
+
+        <div class="form-group">
+            <label>Phone</label>
+            <input type="text" name="phone" id="phone" maxlength="10" required>
+            <div class="error" id="phoneError"></div>
+        </div>
+
+        <div class="form-group">
+            <label>Place</label>
+            <input type="text" name="place" id="place" required>
+            <div class="error" id="placeError"></div>
+        </div>
+
+        <div class="form-group">
+            <label>PIN</label>
+            <input type="text" name="pin" id="pin" maxlength="6" required>
+            <div class="error" id="pinError"></div>
+        </div>
+
+        <div class="form-group">
+            <label>District</label>
+            <input type="text" name="district" id="district" required>
+            <div class="error" id="districtError"></div>
+        </div>
+
+        <div class="form-group">
+            <label>Qualification</label>
+            <input type="text" name="qualification" required>
+        </div>
+
+
+        <div class="form-group">
+            <label>Join Date</label>
+            <input type="date" name="jdate" max="{{ date|date:'Y-m-d' }}" id="dob" required>
+            <div class="error" id="dobError"></div>
+        </div>
+
+        <div class="form-group">
+            <label>Experience</label>
+            <input type="text" name="experience" required>
+        </div>
+
+        <div class="form-group">
+            <label>Designation</label>
+            <input type="text" name="designation" required>
+        </div>
+
+        <div class="form-group">
+            <label>Salary</label>
+            <input type="text" name="salary" required>
+        </div>
+
+        <div class="form-group">
+            <label>Status</label>
+            <div class="d-flex">
+                <label><input type="radio" name="status" value="Active" checked> Active</label>
+                <label><input type="radio" name="status" value="Inactive"> Inactive</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Department</label>
+            <div class="d-flex">
+                <select name="deparment" class="form-control">
+                    <option value="Banking & Treasury">Banking & Treasury</option>
+                    <option value="Data / File Handling">Data / File Handling</option>
+                    <option value="Tax & Legal Finance">Tax & Legal Finance</option>
+                    <option value="Audit & Verification">Audit & Verification</option>
+                </select>
+                            </div>
+        </div>
+
+
+        <button type="submit" class="btn-submit">Submit</button>
+    </form>
+</div>
+
+<script>
+function validateForm() {
+    let valid = true;
+    document.querySelectorAll('.error').forEach(e => e.innerText = "");
+
+    const name = nameInput = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const pin = document.getElementById("pin").value.trim();
+    const place = document.getElementById("place").value.trim();
+    const district = document.getElementById("district").value.trim();
+    const dobValue = document.getElementById("dob").value;
+    const photo = document.getElementById("photo");
+
+    if (!/^[A-Za-z\s]+$/.test(name)) {
+        document.getElementById("nameError").innerText = "Name should contain only letters";
+        valid = false;
+    }
+
+    if (!email.endsWith("@gmail.com")) {
+        document.getElementById("emailError").innerText = "Email must end with @gmail.com";
+        valid = false;
+    }
+
+    if (!/^\d{10}$/.test(phone)) {
+        document.getElementById("phoneError").innerText = "Phone must be 10 digits";
+        valid = false;
+    }
+
+    if (!/^\d{6}$/.test(pin)) {
+        document.getElementById("pinError").innerText = "PIN must be 6 digits";
+        valid = false;
+    }
+
+    if (!/^[A-Za-z\s]+$/.test(place)) {
+        document.getElementById("placeError").innerText = "Place should contain only letters";
+        valid = false;
+    }
+
+    if (!/^[A-Za-z\s]+$/.test(district)) {
+        document.getElementById("districtError").innerText = "District should contain only letters";
+        valid = false;
+    }
+
+    if (dobValue) {
+        const dob = new Date(dobValue);
+        const today = new Date();
+
+        if (dob > today) {
+            document.getElementById("dobError").innerText = "DOB cannot be a future date";
+            valid = false;
+        }
+
+        let age = today.getFullYear() - dob.getFullYear();
+        if (today.getMonth() < dob.getMonth() ||
+            (today.getMonth() === dob.getMonth() && today.getDate() < dob.getDate())) {
+            age--;
+        }
+
+        if (age < 18) {
+            document.getElementById("dobError").innerText = "Staff must be at least 18 years old";
+            valid = false;
+        }
+    }
+
+    if (photo.files.length > 0) {
+        const file = photo.files[0];
+        const allowed = ["image/jpeg", "image/png"];
+
+        if (!allowed.includes(file.type)) {
+            document.getElementById("photoError").innerText = "Only JPG or PNG images allowed";
+            valid = false;
+        }
+
+        if (file.size > 2 * 1024 * 1024) {
+            document.getElementById("photoError").innerText = "Image must be under 2MB";
+            valid = false;
+        }
+    }
+
+    return valid;
+}
+</script>
+
+{% endblock %}

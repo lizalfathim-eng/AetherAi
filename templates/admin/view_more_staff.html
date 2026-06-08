@@ -1,0 +1,53 @@
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>Title</title>#}
+{#</head>#}
+{#<body>#}
+{##}
+{#</body>#}
+{#</html>#}
+
+{% extends 'admin/home_index.html' %}
+{% block body %}
+<!-- Staff Official Details -->
+<h4 class="mt-4 text-primary">Official Details</h4>
+
+<table class="table table-bordered">
+  <tr>
+    <th>Qualification</th>
+    <td>{{ data.qualification }}</td>
+  </tr>
+  <tr>
+    <th>Join Date</th>
+    <td>{{ data.join_date }}</td>
+  </tr>
+  <tr>
+    <th>Experience</th>
+    <td>{{ data.experience }}</td>
+  </tr>
+  <tr>
+    <th>Department</th>
+    <td>{{ data.department }}</td>
+  </tr>
+  <tr>
+    <th>Designation</th>
+    <td>{{ data.designation }}</td>
+  </tr>
+  <tr>
+    <th>Salary</th>
+    <td>₹ {{ data.salary }}</td>
+  </tr>
+  <tr>
+    <th>Status</th>
+    <td>
+      {% if data.status == "Active" %}
+        <span class="badge bg-success">Active</span>
+      {% else %}
+        <span class="badge bg-danger">Inactive</span>
+      {% endif %}
+    </td>
+  </tr>
+</table>
+{% endblock %}

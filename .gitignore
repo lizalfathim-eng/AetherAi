@@ -1,0 +1,28 @@
+# ---- Large data / model artifacts (do not commit; too big for GitHub) ----
+*.pkl
+*.faiss
+*.csv
+*.xlsx
+media/uploaded_data.json
+
+# Uploaded media data dumps
+media/*.csv
+media/*.xlsx
+
+# Database dumps
+*.sql
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+*.log
+
+# ---- OS / editor ----
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

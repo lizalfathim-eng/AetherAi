@@ -1,0 +1,164 @@
+{% extends 'staff/s_home_index.html' %}
+{% block body %}
+  <div class="container mt-5">
+    <h3 class="mb-4">Complaint Reply</h3>
+
+    <!-- Date Filter Inputs -->
+    <div class="row mb-3">
+      <div class="col-md-4">
+        <label for="fromDate" class="form-label">From Date</label>
+        <input type="date" id="fromDate" class="form-control">
+      </div>
+      <div class="col-md-4">
+        <label for="toDate" class="form-label">To Date</label>
+        <input type="date" id="toDate" class="form-control">
+      </div>
+    </div>
+
+    <!-- Complaints Table -->
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover" id="complaintTable">
+        <thead class="table-light">
+          <tr>
+            <th>Sl. No.</th>
+            <th>Date</th>
+            <th>Complaint</th>
+            <th>Reply</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+       <tbody>
+          {% for i in data %}
+          <tr>
+            <td class="text-center fw-bold">{{ forloop.counter }}</td>
+            <td>{{ i.date }}</td>
+            <td>{{ i.complaint }}</td>
+            <td>{{ i.reply }}</td>
+            <td>{{ i.status }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+    {% block scripts %}
+  <script>
+    // Extend DataTables with custom date filtering
+    $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+      const min = document.getElementById('fromDate').value;
+      const max = document.getElementById('toDate').value;
+      const dateStr = data[1]; // Date is column index 1
+      const date = new Date(dateStr);
+
+      const minDate = min ? new Date(min) : null;
+      const maxDate = max ? new Date(max) : null;
+
+      if ((!minDate || date >= minDate) && (!maxDate || date <= maxDate)) {
+        return true;
+      }
+      return false;
+    });
+
+    // Initialize DataTable and bind filter events
+    $(document).ready(function () {
+      const table = $('#complaintTable').DataTable({
+        pageLength: 5
+      });
+
+      $('#fromDate, #toDate').on('change', function () {
+        table.draw();
+      });
+    });
+  </script>
+
+{% endblock %}
+{#    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>#}
+{#<script>#}
+{#  $(document).ready(function () {#}
+{##}
+{#    function parseDate(dateStr) {#}
+{#      // Try to convert text date into YYYY-MM-DD format safely#}
+{#      // Supports formats like "2025-10-24", "24/10/2025", "24-Oct-2025"#}
+{#      if (!dateStr) return null;#}
+{##}
+{#      // Normalize common separators#}
+{#      dateStr = dateStr.replace(/[,]/g, '').replace(/\//g, '-');#}
+{##}
+{#      // Try native parse first#}
+{#      let d = new Date(dateStr);#}
+{#      if (!isNaN(d)) return d;#}
+{##}
+{#      // Manual parse fallback (e.g., 24-Oct-2025)#}
+{#      let parts = dateStr.split('-');#}
+{#      if (parts.length === 3) {#}
+{#        const months = {#}
+{#          Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5,#}
+{#          Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11#}
+{#        };#}
+{#        let day = parseInt(parts[0]);#}
+{#        let month = months[parts[1].substring(0,3)];#}
+{#        let year = parseInt(parts[2]);#}
+{#        if (!isNaN(day) && !isNaN(month) && !isNaN(year))#}
+{#          return new Date(year, month, day);#}
+{#      }#}
+{#      return null;#}
+{#    }#}
+{##}
+{#    function filterTable() {#}
+{#      let from = $("#fromDate").val() ? new Date($("#fromDate").val()) : null;#}
+{#      let to = $("#toDate").val() ? new Date($("#toDate").val()) : null;#}
+{##}
+{#      $("#complaintTable tbody tr").each(function () {#}
+{#        let dateText = $(this).find("td:nth-child(2)").text().trim();#}
+{#        let dateObj = parseDate(dateText);#}
+{##}
+{#        if (!dateObj) {#}
+{#          $(this).show(); // If cannot parse, show it#}
+{#          return;#}
+{#        }#}
+{##}
+{#        let show = true;#}
+{#        if (from && dateObj < from) show = false;#}
+{#        if (to && dateObj > to) show = false;#}
+{#        $(this).toggle(show);#}
+{#      });#}
+{#    }#}
+{##}
+{#    $("#fromDate, #toDate").on("change", filterTable);#}
+{#  });#}
+{#</script>#}
+
+{#<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>#}
+{#<script>#}
+{#  $(document).ready(function () {#}
+{#    // Function to filter table rows based on date range#}
+{#    function filterTable() {#}
+{#      var fromDate = $("#fromDate").val();#}
+{#      var toDate = $("#toDate").val();#}
+{##}
+{#      $("#complaintTable tbody tr").each(function () {#}
+{#        var rowDate = $(this).find("td:nth-child(2)").text().trim(); // 2nd column = Date#}
+{#        if (rowDate) {#}
+{#          var showRow = true;#}
+{##}
+{#          // Convert to comparable format (YYYY-MM-DD)#}
+{#          var rowDateObj = new Date(rowDate);#}
+{#          var fromDateObj = fromDate ? new Date(fromDate) : null;#}
+{#          var toDateObj = toDate ? new Date(toDate) : null;#}
+{##}
+{#          if (fromDateObj && rowDateObj < fromDateObj) showRow = false;#}
+{#          if (toDateObj && rowDateObj > toDateObj) showRow = false;#}
+{##}
+{#          $(this).toggle(showRow);#}
+{#        }#}
+{#      });#}
+{#    }#}
+{##}
+{#    // Trigger filtering whenever date inputs change#}
+{#    $("#fromDate, #toDate").on("change", filterTable);#}
+{#  });#}
+{#</script>#}
+{#{% endblock %}#}
+
+{% endblock %}

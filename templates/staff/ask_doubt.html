@@ -1,0 +1,224 @@
+{% extends 'staff/s_home_index.html' %}
+{% block body %}
+
+<style>
+    body {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .qa-container {
+        max-width: 1100px;
+        margin: 40px auto;
+        background: #ffffff;
+        padding: 35px;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+
+    .qa-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .qa-header h2 {
+        font-weight: 600;
+        color: #333;
+    }
+
+    .qa-header p {
+        color: #777;
+        font-size: 14px;
+    }
+
+    /* Document Preview */
+    .doc-box {
+        background: #f4f6ff;
+        border-radius: 12px;
+        padding: 15px;
+        max-height: 220px;
+        overflow-y: auto;
+        font-size: 14px;
+        border: 1px solid #ddd;
+        margin-bottom: 25px;
+    }
+
+    /* Question Section */
+    .question-section {
+        margin-bottom: 30px;
+    }
+
+    .question-section input {
+        width: 100%;
+        padding: 14px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        font-size: 15px;
+        transition: 0.3s;
+    }
+
+    .question-section input:focus {
+        border-color: #667eea;
+        outline: none;
+        box-shadow: 0 0 8px rgba(102,126,234,0.4);
+    }
+
+    .question-section button {
+        margin-top: 12px;
+        width: 100%;
+        padding: 13px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border: none;
+        border-radius: 10px;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .question-section button:hover {
+        transform: translateY(-2px);
+        opacity: 0.9;
+    }
+
+    /* Row & Column Layout */
+    .row-custom {
+        display: flex;
+        flex-wrap: wrap;
+        margin: -10px;
+    }
+
+    .col-custom {
+        width: 33.33%;   /* 3 columns per row */
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+        .col-custom {
+            width: 50%;   /* 2 columns on tablet */
+        }
+    }
+
+    @media (max-width: 600px) {
+        .col-custom {
+            width: 100%;  /* 1 column on mobile */
+        }
+    }
+
+    /* Card Design */
+    .answer-card {
+        background: #ffffff;
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        transition: 0.3s ease;
+        border-top: 5px solid #667eea;
+        height: 100%;
+    }
+
+    .answer-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    }
+
+    .card-header {
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .doc-title {
+        color: #667eea;
+    }
+
+    .card-body {
+        font-size: 14px;
+        color: #555;
+        margin-bottom: 15px;
+    }
+
+    .card-footer {
+        text-align: center;
+    }
+
+    .download-btn {
+        display: inline-block;
+        padding: 8px 14px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: #fff;
+        text-decoration: none;
+        border-radius: 25px;
+        font-size: 14px;
+        transition: 0.3s ease;
+    }
+
+    .download-btn:hover {
+        transform: scale(1.05);
+    }
+
+    .footer-note {
+        text-align: center;
+        font-size: 12px;
+        margin-top: 35px;
+        color: #888;
+    }
+</style>
+
+<div class="qa-container">
+
+    <div class="qa-header">
+        <h2>📄 Document Question & Answer System</h2>
+        <p>Ask questions based on uploaded document content</p>
+    </div>
+
+    <!-- Document Preview -->
+{#    {% if data %}#}
+{#    <div class="doc-box">#}
+{#        {{ data.count }}#}
+{#    </div>#}
+{#    {% endif %}#}
+
+    <!-- Question Form -->
+    <div class="question-section">
+        <h4>❓ Ask a Question</h4>
+        <form method="post" action="/myapp/ask_question_post/#abc">
+            {% csrf_token %}
+            <input type="text" name="question" placeholder="Type your question here..." required>
+            <button type="submit">🔍 Get Answer</button>
+        </form>
+    </div>
+
+    <!-- Answers in Row & Column Format -->
+    {% if data %}
+    <div class="row-custom">
+        {% for i in data %}
+        <div class="col-custom">
+            <div class="answer-card">
+                <div class="card-header">
+                    📄 <span class="doc-title">{{ i.title }}</span>
+                </div>
+
+                <div class="card-body">
+                    <p><strong>📅 Date:</strong> {{ i.Date }}</p>
+                </div>
+
+                <div class="card-footer">
+                    <a href="{{ i.document }}" class="download-btn">
+                        ⬇ Download
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="footer-note">
+        Powered by AI Semantic Search • AetherAI
+    </div>
+
+</div>
+
+{% endblock %}

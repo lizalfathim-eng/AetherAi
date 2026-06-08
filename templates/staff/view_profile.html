@@ -1,0 +1,141 @@
+{% extends 'staff/s_home_index.html' %}
+{% block body %}
+  <style>
+    body {
+      background: #f9f6f2;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .profile-container {
+      max-width: 900px;
+      margin: 50px auto;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      padding: 40px;
+    }
+    .profile-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .profile-header img {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 5px solid #54a2ff;
+      object-fit: cover;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.3);
+    }
+    .profile-header h2 {
+      margin-top: 15px;
+      font-weight: 700;
+      color: #19438c;
+    }
+    .profile-header p {
+      color: #1b708c;
+      font-size: 1rem;
+    }
+    .table {
+      margin-top: 20px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .table th {
+      background: linear-gradient(90deg, #1d5f8c, #81cfff);
+      color: #fff;
+      font-weight: 600;
+      text-align: left;
+      padding: 14px;
+    }
+    .table td {
+      padding: 14px;
+      vertical-align: middle;
+      background: #fffaf5;
+      font-weight: 500;
+      color: #222;
+    }
+    .table tr:nth-child(even) td {
+      background: #fff3e0;
+    }
+    .btn-edit {
+      margin-top: 25px;
+      display: block;
+      background: linear-gradient(90deg, #000, #34ccff);
+      border: none;
+      border-radius: 8px;
+      padding: 12px 20px;
+      font-weight: 600;
+      color: #fff;
+      transition: 0.3s;
+      text-align: center;
+      text-decoration: none;
+    }
+    .btn-edit:hover {
+      background: linear-gradient(90deg, #5aabff, #000);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      color: #fff;
+    }
+  </style>
+
+  <div class="container">
+    <div class="profile-container">
+      <!-- Profile Header -->
+      <div class="profile-header">
+        <img src="{{data.photo}}" alt="RTO Officer Photo" class="rounded-circle">
+        <h2>{{ data.name }}</h2>
+        <p>My Profile</p>
+      </div>
+
+      <!-- Profile Info Table -->
+      <table class="table table-bordered">
+        <tr>
+          <th>Name</th>
+          <td>{{ data.name }}</td>
+        </tr>
+          <tr>
+          <th>Dob</th>
+          <td>{{ data.dob }}</td>
+        </tr>
+          <tr>
+          <th>Gender</th>
+          <td>{{ data.gender }}</td>
+        </tr>
+        <tr>
+          <th>Email</th>
+          <td>{{ data.email }}</td>
+        </tr>
+        <tr>
+          <th>Phone</th>
+          <td>{{ data.phone }}</td>
+        </tr>
+           <tr>
+          <th>Qualification</th>
+          <td>{{ data.qualification }}</td>
+        </tr>
+        <tr>
+          <th>Place</th>
+          <td>{{ data.place }}</td>
+        </tr>
+        <tr>
+          <th>Pin</th>
+          <td>{{ data.pin }}</td>
+        </tr>
+        <tr>
+          <th>District</th>
+          <td>{{ data.district }}</td>
+        </tr>
+          <tr>
+              <td></td>
+              <td><a href="/myapp/view_staff_more/{{ data.id }}#abc" class="btn btn-info">More</a></td>
+          </tr>
+
+      </table>
+
+      <!-- Action Button -->
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+
+{% endblock %}

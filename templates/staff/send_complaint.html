@@ -1,0 +1,30 @@
+{% extends 'staff/s_home_index.html' %}
+{% block body %}
+
+
+  <div class="container mt-5">
+    <h4 class="mb-4">Send Complaint</h4>
+    <form method="post" action="/myapp/sendcomplaint_admin_post/">
+        {% csrf_token %}
+
+
+      <!-- Complaint Text -->
+      <div class="mb-3">
+        <label for="complaint" class="form-label">Complaint</label>
+        <textarea class="form-control" id="complaint" name="complaint" rows="4" placeholder="Write your complaint here..." required></textarea>
+      </div>
+
+{#      <!-- Optional File Upload -->#}
+{#      <div class="mb-3">#}
+{#        <label for="photo" class="form-label">Attach Photo (optional)</label>#}
+{#        <input type="file" class="form-control" id="photo" accept="image/*">#}
+{#      </div>#}
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-primary">Send Complaint</button>
+    </form>
+  </div>
+
+
+
+{% endblock %}

@@ -1,0 +1,151 @@
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>Title</title>#}
+{#</head>#}
+{#<body>#}
+{#<p>{{ data }}</p>#}
+{#</body>#}
+{#</html>#}
+
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>Document Q&A</title>#}
+{#    <style>#}
+{#        body {#}
+{#            font-family: Arial;#}
+{#            background: #f4f6f9;#}
+{#            padding: 30px;#}
+{#        }#}
+{#        .box {#}
+{#            background: #fff;#}
+{#            padding: 20px;#}
+{#            border-radius: 10px;#}
+{#            max-width: 900px;#}
+{#            margin: auto;#}
+{#        }#}
+{#        textarea {#}
+{#            width: 100%;#}
+{#            height: 200px;#}
+{#            padding: 10px;#}
+{#        }#}
+{#        input {#}
+{#            width: 100%;#}
+{#            padding: 10px;#}
+{#            margin-top: 10px;#}
+{#        }#}
+{#        button {#}
+{#            padding: 10px 20px;#}
+{#            margin-top: 10px;#}
+{#            background: #007bff;#}
+{#            color: white;#}
+{#            border: none;#}
+{#            border-radius: 5px;#}
+{#        }#}
+{#        .answer {#}
+{#            margin-top: 20px;#}
+{#            background: #e9f5ff;#}
+{#            padding: 15px;#}
+{#            border-radius: 8px;#}
+{#        }#}
+{#    </style>#}
+{#</head>#}
+{#<body>#}
+{##}
+{#<div class="box">#}
+{#    <h2>📄 Document Content</h2>#}
+{#    <textarea readonly>{{ data }}</textarea>#}
+{##}
+{#    <h3>❓ Ask a Question</h3>#}
+{#    <form method="post" action="/myapp/ask_question/">#}
+{#        {% csrf_token %}#}
+{#        <input type="text" name="question" placeholder="Ask something from the document..." required>#}
+{#        <button type="submit">Get Answer</button>#}
+{#    </form>#}
+{##}
+{#    {% if answer %}#}
+{#    <div class="answer">#}
+{#        <strong>✅ Answer:</strong>#}
+{#        <p>{{ answer }}</p>#}
+{#    </div>#}
+{#    {% endif %}#}
+{#</div>#}
+{##}
+{#</body>#}
+{#</html>#}
+
+{% extends 'staff/s_home_index.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document Q&A</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f6f9;
+            padding: 30px;
+        }
+        .box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 900px;
+            margin: auto;
+        }
+        textarea {
+            width: 100%;
+            height: 250px;
+            padding: 10px;
+            font-family: monospace;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        .answer {
+            margin-top: 20px;
+            background: #e9f5ff;
+            padding: 15px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h2>📄 Document Content</h2>
+    <textarea readonly>{{ data }}</textarea>
+
+    <h3>❓ Ask a Question</h3>
+    <form method="post" action="/myapp/ask_question/#abc">
+        {% csrf_token %}
+        <input type="text" name="question" placeholder="Ask from document..." required>
+        <button type="submit">Get Answer</button>
+    </form>
+
+    {% if answer %}
+    <div class="answer">
+        <strong>✅ Answer:</strong>
+        <p>{{ answer }}</p>
+    </div>
+    {% endif %}
+</div>
+
+</body>
+</html>
+
+{% endblock %}

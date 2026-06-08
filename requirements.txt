@@ -1,0 +1,23 @@
+# AetherAI — Python dependencies
+# Install with:  pip install -r requirements.txt
+#
+# NOTE: pytesseract also needs the Tesseract OCR program installed separately:
+#       https://github.com/UB-Mannheim/tesseract/wiki
+
+# Web framework
+Django
+
+# MySQL database driver (settings.py uses the mysql backend)
+mysqlclient
+
+# AI / semantic search
+faiss-cpu
+sentence-transformers
+transformers
+scikit-learn
+numpy
+
+# File handling & OCR
+Pillow
+PyPDF2
+pytesseract

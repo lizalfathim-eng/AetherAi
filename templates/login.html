@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance AI Assistant | Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background-color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            max-width: 1100px;
+            height: 650px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Left Panel - Colorful Branding */
+        .left-panel {
+            flex: 1;
+            background: linear-gradient(135deg,
+                rgba(147, 51, 234, 0.85) 0%,
+                rgba(236, 72, 153, 0.85) 25%,
+                rgba(239, 68, 68, 0.85) 50%,
+                rgba(245, 158, 11, 0.85) 75%,
+                rgba(16, 185, 129, 0.85) 100%);
+            padding: 50px 40px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .left-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none" opacity="0.1"><path d="M0,0 L100,0 L100,100 Z" fill="white"/></svg>');
+            background-size: cover;
+        }
+
+        .logo-container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        .logo-icon {
+            background: rgba(255, 255, 255, 0.2);
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .tagline {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+            line-height: 1.5;
+            max-width: 400px;
+        }
+
+        .features {
+            position: relative;
+            z-index: 1;
+            margin-top: 40px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .feature i {
+            background: rgba(255, 255, 255, 0.2);
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            backdrop-filter: blur(5px);
+        }
+
+        .color-bars {
+            display: flex;
+            position: relative;
+            z-index: 1;
+            margin-top: 30px;
+        }
+
+        .color-bar {
+            height: 6px;
+            flex: 1;
+            margin-right: 8px;
+            border-radius: 3px;
+        }
+
+        .color-bar:nth-child(1) { background: #9333ea; }
+        .color-bar:nth-child(2) { background: #ec4899; }
+        .color-bar:nth-child(3) { background: #ef4444; }
+        .color-bar:nth-child(4) { background: #f59e0b; }
+        .color-bar:nth-child(5) { background: #10b981; }
+
+        /* Right Panel - Login Form */
+        .right-panel {
+            flex: 1;
+            padding: 60px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .login-header {
+            margin-bottom: 40px;
+        }
+
+        .login-header h2 {
+            font-size: 32px;
+            color: #1f2937;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .login-header p {
+            color: #6b7280;
+            font-size: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #4b5563;
+            font-weight: 500;
+            font-size: 15px;
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-with-icon i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            font-size: 18px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 16px 16px 16px 50px;
+            border: 1.5px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background-color: #f9fafb;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #9333ea;
+            box-shadow: 0 0 0 3px rgba(147, 51, 234, 0.1);
+            background-color: white;
+        }
+
+        .options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .remember {
+            display: flex;
+            align-items: center;
+        }
+
+        .remember input {
+            margin-right: 8px;
+        }
+
+        .forgot-password {
+            color: #9333ea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(90deg, #9333ea, #ec4899);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 25px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(147, 51, 234, 0.3);
+        }
+
+        .divider {
+            text-align: center;
+            position: relative;
+            margin: 25px 0;
+            color: #9ca3af;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #e5e7eb;
+            z-index: 1;
+        }
+
+        .divider span {
+            background: white;
+            padding: 0 15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .social-login {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .social-btn {
+            flex: 1;
+            padding: 14px;
+            border: 1.5px solid #e5e7eb;
+            border-radius: 12px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .social-btn:hover {
+            border-color: #9333ea;
+            background-color: #faf5ff;
+        }
+
+        .social-btn i {
+            font-size: 18px;
+        }
+
+        .signup-link {
+            text-align: center;
+            color: #6b7280;
+            font-size: 15px;
+        }
+
+        .signup-link a {
+            color: #9333ea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+                height: auto;
+                max-width: 500px;
+            }
+
+            .left-panel {
+                padding: 40px 30px;
+            }
+
+            .right-panel {
+                padding: 40px 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .social-login {
+                flex-direction: column;
+            }
+
+            .options {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .left-panel {
+                padding: 30px 20px;
+            }
+
+            .right-panel {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Left Panel with Branding -->
+        <div class="left-panel">
+            <div class="logo-container">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <span>AetherAI</span>
+                </div>
+
+                <p class="tagline">AI-powered smart search and knowledge assistant for finance department documents and analytics.</p>
+
+                <div class="features">
+                    <div class="feature">
+                        <i class="fas fa-search"></i>
+                        <span>Intelligent document search</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Real-time financial analytics</span>
+                    </div>
+
+                    <div class="feature">
+                        <i class="fas fa-robot"></i>
+                        <span>AI-powered insights & predictions</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="color-bars">
+                <div class="color-bar"></div>
+                <div class="color-bar"></div>
+                <div class="color-bar"></div>
+                <div class="color-bar"></div>
+                <div class="color-bar"></div>
+            </div>
+        </div>
+
+        <!-- Right Panel with Login Form -->
+        <div class="right-panel">
+            <div class="login-header">
+                <h2>Welcome Back</h2>
+                <p>Sign in to access your finance AI assistant dashboard</p>
+            </div>
+
+            <form id="" action="/myapp/loginpage_post/" method="post" >
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" name="username" class="form-control" placeholder="finance.user@company.com" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required>
+                    </div>
+                </div>
+
+                <div class="options">
+                    <div class="remember">
+                        <input type="checkbox" id="remember">
+                        <label for="remember">Remember me</label>
+                    </div>
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="login-btn">Sign In to Dashboard</button>
+            </form>
+
+            <div class="divider">
+                <span>Or continue with</span>
+            </div>
+
+{#            <div class="social-login">#}
+{#                <button class="social-btn">#}
+{#                    <i class="fab fa-microsoft" style="color: #0078d4;"></i>#}
+{#                    <span>Microsoft</span>#}
+{#                </button>#}
+{#                <button class="social-btn">#}
+{#                    <i class="fab fa-google" style="color: #ea4335;"></i>#}
+{#                    <span>Google</span>#}
+{#                </button>#}
+{#            </div>#}
+
+            <p class="signup-link">
+                Don't have an account? <a href="#">Request access</a>
+            </p>
+        </div>
+    </div>
+
+{#    <script>#}
+{#        document.getElementById('loginForm').addEventListener('submit', function(e) {#}
+{#            e.preventDefault();#}
+{##}
+{#            const email = document.getElementById('email').value;#}
+{#            const password = document.getElementById('password').value;#}
+{##}
+{#            // Simple validation#}
+{#            if (!email || !password) {#}
+{#                alert('Please fill in all fields');#}
+{#                return;#}
+{#            }#}
+{##}
+{#            // Simulate login process#}
+{#            const loginBtn = document.querySelector('.login-btn');#}
+{#            const originalText = loginBtn.textContent;#}
+{##}
+{#            loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Authenticating...';#}
+{#            loginBtn.disabled = true;#}
+{##}
+{#            // Simulate API call delay#}
+{#            setTimeout(() => {#}
+{#                // In a real application, you would send the credentials to a server#}
+{#                alert(`Login successful!\n\nWelcome, ${email}\n\nRedirecting to Finance AI Dashboard...`);#}
+{#                loginBtn.textContent = originalText;#}
+{#                loginBtn.disabled = false;#}
+{##}
+{#                // Here you would redirect to the actual dashboard#}
+{#                // window.location.href = '/dashboard.html';#}
+{#            }, 1500);#}
+{#        });#}
+{##}
+{#        // Add some interactivity to social login buttons#}
+{#        document.querySelectorAll('.social-btn').forEach(button => {#}
+{#            button.addEventListener('click', function() {#}
+{#                const platform = this.querySelector('span').textContent;#}
+{#                alert(`Redirecting to ${platform} authentication...`);#}
+{#            });#}
+{#        });#}
+{##}
+{#        // Forgot password functionality#}
+{#        document.querySelector('.forgot-password').addEventListener('click', function(e) {#}
+{#            e.preventDefault();#}
+{#            const email = prompt('Please enter your email address to reset your password:');#}
+{#            if (email) {#}
+{#                alert(`Password reset instructions have been sent to ${email}`);#}
+{#            }#}
+{#        });#}
+{#    </script>#}
+</body>
+</html>

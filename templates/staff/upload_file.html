@@ -1,0 +1,609 @@
+{##}
+{##}
+{##}
+{#{% extends 'home_index.html' %}#}
+{#{% block body %}#}
+{##}
+{#<style>#}
+{#    .form-container {#}
+{#        max-width: 600px;#}
+{#        margin: 40px auto;#}
+{#        padding: 30px;#}
+{#        background: #ffffff;#}
+{#        border-radius: 12px;#}
+{#        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);#}
+{#    }#}
+{##}
+{#    .form-container h2 {#}
+{#        text-align: center;#}
+{#        margin-bottom: 25px;#}
+{#        color: #333;#}
+{#        font-weight: 600;#}
+{#    }#}
+{##}
+{#    .form-group {#}
+{#        margin-bottom: 15px;#}
+{#    }#}
+{##}
+{#    label {#}
+{#        font-weight: 500;#}
+{#        display: block;#}
+{#        margin-bottom: 6px;#}
+{#    }#}
+{##}
+{#    input[type="text"],#}
+{#    input[type="email"],#}
+{#    input[type="date"],#}
+{#    input[type="file"] {#}
+{#        width: 100%;#}
+{#        padding: 10px;#}
+{#        border: 1px solid #ccc;#}
+{#        border-radius: 6px;#}
+{#        outline: none;#}
+{#    }#}
+{##}
+{#    input:focus {#}
+{#        border-color: #4a90e2;#}
+{#    }#}
+{##}
+{#    .error {#}
+{#        color: red;#}
+{#        font-size: 13px;#}
+{#        margin-top: 3px;#}
+{#    }#}
+{##}
+{#    .btn-submit {#}
+{#        width: 100%;#}
+{#        padding: 12px;#}
+{#        background: #4a90e2;#}
+{#        color: white;#}
+{#        font-size: 16px;#}
+{#        border: none;#}
+{#        border-radius: 6px;#}
+{#        cursor: pointer;#}
+{#        transition: background 0.3s;#}
+{#    }#}
+{##}
+{#    .btn-submit:hover {#}
+{#        background: #357abd;#}
+{#    }#}
+{##}
+{#    .d-flex {#}
+{#        display: flex;#}
+{#        gap: 20px;#}
+{#    }#}
+{#.alert {#}
+{#    padding: 12px;#}
+{#    margin-bottom: 15px;#}
+{#    border-radius: 6px;#}
+{#    font-weight: 500;#}
+{#}#}
+{##}
+{#.alert-success {#}
+{#    background: #d4edda;#}
+{#    color: #155724;#}
+{#}#}
+{##}
+{#.alert-danger {#}
+{#    background: #f8d7da;#}
+{#    color: #721c24;#}
+{#}#}
+{##}
+{#.alert-info {#}
+{#    background: #d1ecf1;#}
+{#    color: #0c5460;#}
+{#}#}
+{##}
+{#</style>#}
+{##}
+{#<div class="form-container">#}
+{##}
+{#{% if messages %}#}
+{#    {% for message in messages %}#}
+{#        <div class="alert#}
+{#            {% if message.tags == 'success' %}alert-success#}
+{#            {% elif message.tags == 'error' %}alert-danger#}
+{#            {% else %}alert-info{% endif %}">#}
+{#            {{ message }}#}
+{#        </div>#}
+{#    {% endfor %}#}
+{#{% endif %}#}
+{##}
+{#    <h2>Add Staff</h2>#}
+{##}
+{#    <form action="/myapp/upload_file_post/" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">#}
+{#        {% csrf_token %}#}
+{##}
+{#        <div class="form-group">#}
+{#            <label>Title</label>#}
+{#            <input type="text" name="name" id="name" required>#}
+{#            <div class="error" id="nameError"></div>#}
+{#        </div>#}
+{##}
+{##}
+{#        <div class="form-group">#}
+{#            <label>File</label>#}
+{#            <input type="file" name="file" accept=".csv" required>#}
+{##}
+{#            <input type="file" name="file" accept="image/png, image/jpeg, image/jpg" required>#}
+{#        </div>#}
+{##}
+{##}
+{##}
+{#        <button type="submit" class="btn btn-submit">Submit</button>#}
+{#    </form>#}
+{#</div>#}
+{##}
+{#<script>#}
+{#    function validateForm() {#}
+{#        let valid = true;#}
+{##}
+{#        // Clear errors#}
+{#        document.querySelectorAll('.error').forEach(e => e.innerText = "");#}
+{##}
+{#        const name = document.getElementById("name").value.trim();#}
+{#        const email = document.getElementById("email").value.trim();#}
+{#        const phone = document.getElementById("phone").value.trim();#}
+{#        const pin = document.getElementById("pin").value.trim();#}
+{#        const place = document.getElementById("place").value.trim();#}
+{#        const district = document.getElementById("district").value.trim();#}
+{#        const dob = document.getElementById("dob").value;#}
+{##}
+{##}
+{#        // Name validation (no numbers)#}
+{#        if (!/^[A-Za-z\s]+$/.test(name)) {#}
+{#            document.getElementById("nameError").innerText = "Name should contain only letters";#}
+{#            valid = false;#}
+{#        }#}
+{##}
+{#        // Email validation (@gmail.com)#}
+{#        if (!email.endsWith("@gmail.com")) {#}
+{#            document.getElementById("emailError").innerText = "Email must end with @gmail.com";#}
+{#            valid = false;#}
+{#        }#}
+{##}
+{#        // Phone validation (10 digits)#}
+{#        if (!/^\d{10}$/.test(phone)) {#}
+{#            document.getElementById("phoneError").innerText = "Phone must be 10 digits";#}
+{#            valid = false;#}
+{#        }#}
+{##}
+{#        // PIN validation (6 digits)#}
+{#        if (!/^\d{6}$/.test(pin)) {#}
+{#            document.getElementById("pinError").innerText = "PIN must be 6 digits";#}
+{#            valid = false;#}
+{#        }#}
+{##}
+{#        // Place & District (letters only)#}
+{#        if (!/^[A-Za-z\s]+$/.test(place)) {#}
+{#            document.getElementById("placeError").innerText = "Place should contain only letters";#}
+{#            valid = false;#}
+{#        }#}
+{##}
+{#        if (!/^[A-Za-z\s]+$/.test(district)) {#}
+{#            document.getElementById("districtError").innerText = "District should contain only letters";#}
+{#            valid = false;#}
+{#        }#}
+{##}
+{#        if (dob) {#}
+{#            const dobDate = new Date(dob);#}
+{#            const today = new Date();#}
+{##}
+{#            let age = today.getFullYear() - dobDate.getFullYear();#}
+{#            const monthDiff = today.getMonth() - dobDate.getMonth();#}
+{##}
+{#            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dobDate.getDate())) {#}
+{#                age--;#}
+{#            }#}
+{##}
+{#            if (age < 18) {#}
+{#                document.getElementById("dobError").innerText = "Staff must be at least 18 years old";#}
+{#                valid = false;#}
+{#            }#}
+{#        }#}
+{##}
+{#        return valid;#}
+{#    }#}
+{#</script>#}
+{##}
+{#{% endblock %}#}
+
+{#{% extends 'home_index.html' %}#}
+{#{% block body %}#}
+{##}
+{#<style>#}
+{#    .form-container {#}
+{#        max-width: 600px;#}
+{#        margin: 40px auto;#}
+{#        padding: 30px;#}
+{#        background: #ffffff;#}
+{#        border-radius: 12px;#}
+{#        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);#}
+{#    }#}
+{##}
+{#    .form-container h2 {#}
+{#        text-align: center;#}
+{#        margin-bottom: 25px;#}
+{#        color: #333;#}
+{#        font-weight: 600;#}
+{#    }#}
+{##}
+{#    .form-group {#}
+{#        margin-bottom: 15px;#}
+{#    }#}
+{##}
+{#    label {#}
+{#        font-weight: 500;#}
+{#        display: block;#}
+{#        margin-bottom: 6px;#}
+{#    }#}
+{##}
+{#    input[type="text"],#}
+{#    input[type="file"] {#}
+{#        width: 100%;#}
+{#        padding: 10px;#}
+{#        border: 1px solid #ccc;#}
+{#        border-radius: 6px;#}
+{#        outline: none;#}
+{#    }#}
+{##}
+{#    input:focus {#}
+{#        border-color: #4a90e2;#}
+{#    }#}
+{##}
+{#    .error {#}
+{#        color: red;#}
+{#        font-size: 13px;#}
+{#        margin-top: 3px;#}
+{#    }#}
+{##}
+{#    .btn-submit {#}
+{#        width: 100%;#}
+{#        padding: 12px;#}
+{#        background: #4a90e2;#}
+{#        color: white;#}
+{#        font-size: 16px;#}
+{#        border: none;#}
+{#        border-radius: 6px;#}
+{#        cursor: pointer;#}
+{#        transition: background 0.3s;#}
+{#    }#}
+{##}
+{#    .btn-submit:hover {#}
+{#        background: #357abd;#}
+{#    }#}
+{##}
+{#    .alert {#}
+{#        padding: 12px;#}
+{#        margin-bottom: 15px;#}
+{#        border-radius: 6px;#}
+{#        font-weight: 500;#}
+{#    }#}
+{##}
+{#    .alert-success { background: #d4edda; color: #155724; }#}
+{#    .alert-danger { background: #f8d7da; color: #721c24; }#}
+{#    .alert-info { background: #d1ecf1; color: #0c5460; }#}
+{#</style>#}
+{##}
+{#<div class="form-container">#}
+{##}
+{#    {% if messages %}#}
+{#        {% for message in messages %}#}
+{#            <div class="alert {% if message.tags == 'success' %}alert-success{% elif message.tags == 'error' %}alert-danger{% else %}alert-info{% endif %}">#}
+{#                {{ message }}#}
+{#            </div>#}
+{#        {% endfor %}#}
+{#    {% endif %}#}
+{##}
+{#    <h2>Add Notice</h2>#}
+{##}
+{#    <form action="/myapp/upload_notice_post/" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">#}
+{#        {% csrf_token %}#}
+{##}
+{#        <div class="form-group">#}
+{#            <label for="file">Notice</label>#}
+{#            <input type="file" name="file" id="file" accept="image/*" required>#}
+{#            <div class="error" id="fileError"></div>#}
+{#        </div>#}
+{##}
+{#        <button type="submit" class="btn-submit">Submit</button>#}
+{#    </form>#}
+{#</div>#}
+{##}
+{#<script>#}
+{#    function validateForm() {#}
+{#        let valid = true;#}
+{##}
+{#        // Clear previous errors#}
+{#        document.querySelectorAll('.error').forEach(e => e.innerText = "");#}
+{##}
+{#        const fileInput = document.getElementById("file");#}
+{#        const file = fileInput.files[0];#}
+{##}
+{##}
+{#        // Validate File: must be selected and must be CSV#}
+{#        if (!file) {#}
+{#            document.getElementById("fileError").innerText = "Please select a file.";#}
+{#            valid = false;#}
+{#        } else {#}
+{#            const fileName = file.name.toLowerCase();#}
+{#            if (!fileName.endsWith('.jpg')) {#}
+{#                document.getElementById("fileError").innerText = "Only CSV files are allowed.";#}
+{#                valid = false;#}
+{#            }#}
+{#        }#}
+{##}
+{#        return valid;#}
+{#    }#}
+{#</script>#}
+{##}
+{#{% endblock %}#}
+
+{#{% extends 'staff/s_home_index.html' %}#}
+{#{% block body %}#}
+{##}
+{#<style>#}
+{#    .form-container {#}
+{#        max-width: 600px;#}
+{#        margin: 40px auto;#}
+{#        padding: 30px;#}
+{#        background: #ffffff;#}
+{#        border-radius: 12px;#}
+{#        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);#}
+{#    }#}
+{##}
+{#    .form-container h2 {#}
+{#        text-align: center;#}
+{#        margin-bottom: 25px;#}
+{#        color: #333;#}
+{#        font-weight: 600;#}
+{#    }#}
+{##}
+{#    .form-group {#}
+{#        margin-bottom: 15px;#}
+{#    }#}
+{##}
+{#    label {#}
+{#        font-weight: 500;#}
+{#        display: block;#}
+{#        margin-bottom: 6px;#}
+{#    }#}
+{##}
+{#    input[type="file"] {#}
+{#        width: 100%;#}
+{#        padding: 10px;#}
+{#        border: 1px solid #ccc;#}
+{#        border-radius: 6px;#}
+{#        outline: none;#}
+{#    }#}
+{##}
+{#    input:focus {#}
+{#        border-color: #4a90e2;#}
+{#    }#}
+{##}
+{#    .error {#}
+{#        color: red;#}
+{#        font-size: 13px;#}
+{#        margin-top: 3px;#}
+{#    }#}
+{##}
+{#    .btn-submit {#}
+{#        width: 100%;#}
+{#        padding: 12px;#}
+{#        background: #4a90e2;#}
+{#        color: white;#}
+{#        font-size: 16px;#}
+{#        border: none;#}
+{#        border-radius: 6px;#}
+{#        cursor: pointer;#}
+{#        transition: background 0.3s;#}
+{#    }#}
+{##}
+{#    .btn-submit:hover {#}
+{#        background: #357abd;#}
+{#    }#}
+{##}
+{#    .alert {#}
+{#        padding: 12px;#}
+{#        margin-bottom: 15px;#}
+{#        border-radius: 6px;#}
+{#        font-weight: 500;#}
+{#    }#}
+{##}
+{#    .alert-success { background: #d4edda; color: #155724; }#}
+{#    .alert-danger { background: #f8d7da; color: #721c24; }#}
+{#    .alert-info { background: #d1ecf1; color: #0c5460; }#}
+{#</style>#}
+{##}
+{#<div class="form-container">#}
+{##}
+{#    <h2>Add Notice</h2>#}
+{##}
+{#    <form action="/myapp/upload_file_post/"#}
+{#          method="post"#}
+{#          enctype="multipart/form-data"#}
+{#          onsubmit="return validateForm()">#}
+{##}
+{#        {% csrf_token %}#}
+{##}
+{#         <div class="form-group">#}
+{#            <label>Title</label>#}
+{#            <input type="text" id="file" name="title" class="form-controller" required>#}
+{#        </div>#}
+{##}
+{##}
+{#        <div class="form-group">#}
+{#            <label for="file">Document Poster</label>#}
+{#            <input type="file"#}
+{#                   name="file"#}
+{#                   id="file"#}
+{##}
+{#                   required>#}
+{#            <div class="error" id="fileError"></div>#}
+{#        </div>#}
+{##}
+{#        <button type="submit" class="btn-submit">Submit</button>#}
+{#    </form>#}
+{#</div>#}
+{##}
+{#<script>#}
+{#    function validateForm() {#}
+{##}
+{#        // Clear previous errors#}
+{#        document.querySelectorAll('.error').forEach(e => e.innerText = "");#}
+{##}
+{#        const fileInput = document.getElementById("file");#}
+{#        const file = fileInput.files[0];#}
+{##}
+{#        if (!file) {#}
+{#            document.getElementById("fileError").innerText =#}
+{#                "Please select an image file.";#}
+{#            return false;#}
+{#        }#}
+{##}
+{#        const allowedExtensions = ['jpg', 'jpeg', 'png'];#}
+{#        const extension = file.name.toLowerCase().split('.').pop();#}
+{##}
+{#        if (!allowedExtensions.includes(extension)) {#}
+{#            document.getElementById("fileError").innerText =#}
+{#                "Only image files (.jpg, .jpeg, .png) are allowed.";#}
+{#            return false;#}
+{#        }#}
+{##}
+{#        return true;#}
+{#    }#}
+{#</script>#}
+{##}
+{#{% endblock %}#}
+
+{% extends 'staff/s_home_index.html' %}
+{% block body %}
+
+<style>
+    .form-container {
+        max-width: 600px;
+        margin: 40px auto;
+        padding: 30px;
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-container h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        color: #333;
+        font-weight: 600;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    label {
+        font-weight: 500;
+        display: block;
+        margin-bottom: 6px;
+    }
+
+    /* Apply same styling to BOTH inputs */
+    input[type="text"],
+    input[type="file"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        outline: none;
+        box-sizing: border-box;
+    }
+
+    input[type="text"]:focus,
+    input[type="file"]:focus {
+        border-color: #4a90e2;
+    }
+
+    .error {
+        color: red;
+        font-size: 13px;
+        margin-top: 3px;
+    }
+
+    .btn-submit {
+        width: 100%;
+        padding: 12px;
+        background: #4a90e2;
+        color: white;
+        font-size: 16px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    .btn-submit:hover {
+        background: #357abd;
+    }
+
+    .alert {
+        padding: 12px;
+        margin-bottom: 15px;
+        border-radius: 6px;
+        font-weight: 500;
+    }
+
+    .alert-success { background: #d4edda; color: #155724; }
+    .alert-danger { background: #f8d7da; color: #721c24; }
+    .alert-info { background: #d1ecf1; color: #0c5460; }
+</style>
+
+<div class="form-container">
+
+    <h2>Add Notice</h2>
+
+    <form action="/myapp/upload_file_post/"
+          method="post"
+          enctype="multipart/form-data"
+          onsubmit="return validateForm()">
+
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text"
+                   id="title"
+                   name="title"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label for="file">Document Poster</label>
+            <input type="file"
+                   name="file"
+                   id="file"
+                   required>
+            <div class="error" id="fileError"></div>
+        </div>
+
+        <button type="submit" class="btn-submit">Submit</button>
+    </form>
+</div>
+
+<script>
+    function validateForm() {
+
+        document.querySelectorAll('.error').forEach(e => e.innerText = "");
+
+        const fileInput = document.getElementById("file");
+        const file = fileInput.files[0];
+
+        if (!file) {
+            document.getElementById("fileError").innerText =
+                "Please select a file.";
+            return false;
+        }
+
+        return true;
+    }
+</script>
+
+{% endblock %}
